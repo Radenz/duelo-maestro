@@ -33,8 +33,7 @@ public enum GoAction implements Action {
                 if (softBlockedWithAcc && !softBlocked) {
                     return false;
                 }
-                return !bot.isAccBlocked() && !bot.isNextToHardObstacle()
-                        && !bot.stillHasBoost();
+                return !bot.isAccBlocked() && !bot.isNextToHardObstacle();
             case NORMAL:
                 if (hardBlocked) {
                     return true;

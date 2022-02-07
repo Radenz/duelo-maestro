@@ -42,7 +42,8 @@ public enum UseAction implements Action {
 
             case BOOST:
                 feasibility = feasibility
-                        && !bot.willHitHardObstacleIfBoosted();
+                        && !bot.willHitHardObstacleIfBoosted()
+                        && !bot.stillHasBoost();
                 break;
             case OIL:
             case OIL_FORCE:
