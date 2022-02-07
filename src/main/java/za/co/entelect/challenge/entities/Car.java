@@ -17,6 +17,9 @@ public class Car {
     @SerializedName("state")
     public State state;
 
+    @SerializedName("statesThatOccurredThisRound")
+    public State[] states;
+
     @SerializedName("damage")
     public int damage;
 
@@ -97,6 +100,15 @@ public class Car {
         return false;
     }
 
+    public boolean is(State state) {
+        for (State s: this.states) {
+            if (state == s) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int maxSpeed() {
         if (this.damage >= 5) {
             return 0;
@@ -131,6 +143,10 @@ public class Car {
 
     public boolean isInRightmostLane() {
         return this.lane() == 4;
+    }
+
+    public boolean isBoosting() {
+        return this.boostCounter > 0;
     }
 
 }

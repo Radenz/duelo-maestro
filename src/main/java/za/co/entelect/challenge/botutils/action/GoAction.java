@@ -33,7 +33,8 @@ public enum GoAction implements Action {
                 if (softBlockedWithAcc && !softBlocked) {
                     return false;
                 }
-                return !bot.isAccBlocked() && !bot.isNextToHardObstacle();
+                return !bot.isAccBlocked() && !bot.isNextToHardObstacle()
+                        && !bot.stillHasBoost();
             case NORMAL:
                 if (hardBlocked) {
                     return true;
@@ -49,7 +50,8 @@ public enum GoAction implements Action {
                 if (softBlocked) {
                     return !bot.isLeftHardBlocked();
                 }
-                return !bot.isLeftBlocked() && !bot.canSeeHardObstaclesLeftSide();
+                return !bot.isLeftBlocked() && !bot.canSeeHardObstaclesLeftSide()
+                        && !bot.isHitByEMP();
             case TURN_RIGHT:
                 if (!bot.canTurnRight()) {
                     return false;
@@ -57,7 +59,8 @@ public enum GoAction implements Action {
                 if (softBlocked) {
                     return !bot.isRightHardBlocked();
                 }
-                return !bot.isRightBlocked() && !bot.canSeeHardObstaclesRightSide();
+                return !bot.isRightBlocked() && !bot.canSeeHardObstaclesRightSide()
+                        && !bot.isHitByEMP();
             case DECELERATE:
                 return !bot.willHitObstacleIf(this);
         }

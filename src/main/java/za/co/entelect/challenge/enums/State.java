@@ -31,6 +31,8 @@ public enum State {
     USED_TWEET,
     @SerializedName("HIT_WALL")
     HIT_WALL,
+    @SerializedName("HIT_EMP")
+    HIT_EMP,
     @SerializedName("HIT_CYBER_TRUCK")
     HIT_CYBER_TRUCK,
     @SerializedName("FINISHED")

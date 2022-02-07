@@ -6,6 +6,7 @@ import za.co.entelect.challenge.botutils.action.GoAction;
 import za.co.entelect.challenge.command.*;
 import za.co.entelect.challenge.entities.*;
 import za.co.entelect.challenge.enums.PowerUp;
+import za.co.entelect.challenge.enums.State;
 import za.co.entelect.challenge.type.LocalMap;
 import za.co.entelect.challenge.type.PowerUpSearchResult;
 import za.co.entelect.challenge.type.RelativePosition;
@@ -402,6 +403,14 @@ public class Bot {
         Block block = this.map.getBlock(this.player.lane(),
                 this.player.at() + this.player.speed);
         return block == null || !block.terrain.isObstacle();
+    }
+
+    public boolean isHitByEMP() {
+        return this.player.is(State.HIT_EMP);
+    }
+
+    public boolean stillHasBoost() {
+        return this.player.isBoosting();
     }
 
 }
