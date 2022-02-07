@@ -39,9 +39,11 @@ public enum Strategy {
 
     private static Action[] getSafeStrategyActions() {
         return new Action[]{
+                FinalAction.ACCELERATE,
+                FinalAction.NORMAL,
+                FinalAction.TURN_LEFT,
+                FinalAction.TURN_RIGHT,
                 FixAction.URGENT,
-//                EscapeAction.EMP,
-//                EscapeAction.CYBERTRUCK,
                 UseAction.EMP,
                 UseAction.CYBERTRUCK,
                 UseAction.BOOST,
@@ -64,6 +66,10 @@ public enum Strategy {
 
     private static Action[] getBerserkStrategyActions() {
         return new Action[]{
+                FinalAction.ACCELERATE,
+                FinalAction.NORMAL,
+                FinalAction.TURN_LEFT,
+                FinalAction.TURN_RIGHT,
                 FixAction.URGENT,
                 SpecialAction.BERSERK,
                 PickUpAction.EMP_FORCE,
@@ -71,8 +77,6 @@ public enum Strategy {
                 PickUpAction.BOOST_FORCE,
                 PickUpAction.OIL_FORCE,
                 PickUpAction.LIZARD_FORCE,
-                EscapeAction.EMP,
-                EscapeAction.CYBERTRUCK,
                 FixAction.SEMI_URGENT,
                 GoAction.ACCELERATE,
                 GoAction.NORMAL,
@@ -85,14 +89,16 @@ public enum Strategy {
 
     private static Action[] getRageStrategyActions() {
         return new Action[]{
+                FinalAction.ACCELERATE,
+                FinalAction.NORMAL,
+                FinalAction.TURN_LEFT,
+                FinalAction.TURN_RIGHT,
                 FixAction.URGENT,
                 SpecialAction.RAGE,
                 PickUpAction.EMP_FORCE,
                 PickUpAction.CYBERTRUCK_FORCE,
                 UseAction.EMP_FORCE,
                 UseAction.CYBERTRUCK_FORCE,
-                EscapeAction.EMP,
-                EscapeAction.CYBERTRUCK,
                 PickUpAction.BOOST,
                 PickUpAction.OIL,
                 PickUpAction.LIZARD,
@@ -111,11 +117,13 @@ public enum Strategy {
 
     private static Action[] getBoostManiacStrategyActions() {
         return new Action[]{
+                FinalAction.ACCELERATE,
+                FinalAction.NORMAL,
+                FinalAction.TURN_LEFT,
+                FinalAction.TURN_RIGHT,
                 FixAction.URGENT,
                 PickUpAction.BOOST_FORCE,
                 UseAction.BOOST_FORCE,
-                EscapeAction.EMP,
-                EscapeAction.CYBERTRUCK,
                 UseAction.EMP,
                 UseAction.CYBERTRUCK,
                 UseAction.OIL,
@@ -136,6 +144,10 @@ public enum Strategy {
 
     private static Action[] getPowerUpManiacStrategyActions() {
         return new Action[]{
+                FinalAction.ACCELERATE,
+                FinalAction.NORMAL,
+                FinalAction.TURN_LEFT,
+                FinalAction.TURN_RIGHT,
                 FixAction.URGENT,
                 UseAction.EMP_FORCE,
                 UseAction.CYBERTRUCK_FORCE,
@@ -147,8 +159,6 @@ public enum Strategy {
                 PickUpAction.BOOST_FORCE,
                 PickUpAction.OIL_FORCE,
                 PickUpAction.LIZARD_FORCE,
-                EscapeAction.EMP,
-                EscapeAction.CYBERTRUCK,
                 FixAction.SEMI_URGENT,
                 GoAction.ACCELERATE,
                 GoAction.NORMAL,
@@ -161,11 +171,13 @@ public enum Strategy {
 
     private static Action[] getUltraBerserkStrategyActions() {
         return new Action[]{
+                FinalAction.ACCELERATE,
+                FinalAction.NORMAL,
+                FinalAction.TURN_LEFT,
+                FinalAction.TURN_RIGHT,
                 FixAction.URGENT,
                 SpecialAction.ULTRA_BERSERK,
                 SpecialAction.GREEDY_PICK_UP,
-                EscapeAction.EMP,
-                EscapeAction.CYBERTRUCK,
                 FixAction.SEMI_URGENT,
                 GoAction.ACCELERATE,
                 GoAction.NORMAL,
@@ -178,6 +190,10 @@ public enum Strategy {
 
     private static Action[] getHasteBerserkStrategyActions() {
         return new Action[]{
+                FinalAction.ACCELERATE,
+                FinalAction.NORMAL,
+                FinalAction.TURN_LEFT,
+                FinalAction.TURN_RIGHT,
                 FixAction.URGENT,
                 UseAction.BOOST_FORCE,
                 SpecialAction.BERSERK,
@@ -186,8 +202,6 @@ public enum Strategy {
                 PickUpAction.BOOST_FORCE,
                 PickUpAction.OIL_FORCE,
                 PickUpAction.LIZARD_FORCE,
-                EscapeAction.EMP,
-                EscapeAction.CYBERTRUCK,
                 FixAction.SEMI_URGENT,
                 GoAction.ACCELERATE,
                 GoAction.NORMAL,
@@ -201,10 +215,12 @@ public enum Strategy {
     private static Action[] getDestroyerStrategyActions() {
         return new Action[]{
                 SpecialAction.EMP_COMBO,
+                FinalAction.ACCELERATE,
+                FinalAction.NORMAL,
+                FinalAction.TURN_LEFT,
+                FinalAction.TURN_RIGHT,
                 FixAction.URGENT,
                 PickUpAction.EMP_FORCE,
-                EscapeAction.EMP,
-                EscapeAction.CYBERTRUCK,
                 UseAction.CYBERTRUCK,
                 UseAction.BOOST,
                 UseAction.OIL,
@@ -224,10 +240,12 @@ public enum Strategy {
 
     private static Action[] getSkipperStrategyActions() {
         return new Action[]{
+                FinalAction.ACCELERATE,
+                FinalAction.NORMAL,
+                FinalAction.TURN_LEFT,
+                FinalAction.TURN_RIGHT,
                 FixAction.URGENT,
                 UseAction.LIZARD_FORCE,
-                EscapeAction.EMP,
-                EscapeAction.CYBERTRUCK,
                 UseAction.EMP,
                 UseAction.CYBERTRUCK,
                 UseAction.BOOST,

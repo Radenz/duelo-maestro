@@ -18,7 +18,7 @@ public enum GoAction implements Action {
         boolean hardBlockedWithAcc = bot.canSeeHardObstaclesOnAllLanes(true);
         switch (this) {
             case ACCELERATE:
-                if (bot.player.speed == 0 && bot.canGainMoreSpeed()) {
+                if (bot.player().speed == 0 && bot.canGainMoreSpeed()) {
                     return true;
                 }
                 if (hardBlocked && bot.canGainMoreSpeed()) {

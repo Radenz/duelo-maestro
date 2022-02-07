@@ -21,8 +21,16 @@ public class Block {
                 || this.occupiedByCyberTruck;
     }
 
+    public boolean isSoftObstacle() {
+        return this.isObstacle() && !this.isHardObstacle();
+    }
+
     public boolean isHardObstacle() {
         return this.terrain.isWall()
                 || this.occupiedByCyberTruck;
+    }
+
+    public boolean isFinishLine() {
+        return this.terrain.isFinishLine();
     }
 }

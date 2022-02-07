@@ -57,4 +57,8 @@ public enum Terrain {
                 return this == LIZARD;
         }
     }
+
+    public boolean isFinishLine() {
+        return this == FINISH;
+    }
 }

@@ -32,6 +32,26 @@ public class Car {
     @SerializedName("boostCounter")
     public int boostCounter;
 
+    public Car clone() {
+        Car newCar = new Car();
+        newCar.id = this.id;
+        newCar.position = new Position(this.position.lane(), this.position.distance());
+        newCar.speed = this.speed;
+        newCar.state = this.state;
+        newCar.states = new State[this.states.length];
+        for (int i = 0; i < this.states.length; i++) {
+            newCar.states[i] = this.states[i];
+        }
+        newCar.damage = this.damage;
+        newCar.powerups = new PowerUp[this.powerups.length];
+        for (int i = 0; i < this.powerups.length; i++) {
+            newCar.powerups[i] = this.powerups[i];
+        }
+        newCar.boosting = this.boosting;
+        newCar.boostCounter = this.boostCounter;
+        return newCar;
+    }
+
     public int at() {
         return this.position.distance();
     }
@@ -92,7 +112,7 @@ public class Car {
     }
 
     public boolean has(PowerUp powerUp) {
-        for (PowerUp p: this.powerups) {
+        for (PowerUp p : this.powerups) {
             if (p == powerUp) {
                 return true;
             }
@@ -100,8 +120,22 @@ public class Car {
         return false;
     }
 
+    public boolean has(PowerUp powerUp, int count) {
+        int powerUpCount = 0;
+        for (PowerUp p : this.powerups) {
+            if (p == powerUp && ++powerUpCount >= count) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasAnyPowerUp() {
+        return this.powerups.length > 0;
+    }
+
     public boolean is(State state) {
-        for (State s: this.states) {
+        for (State s : this.states) {
             if (state == s) {
                 return true;
             }
@@ -147,6 +181,19 @@ public class Car {
 
     public boolean isBoosting() {
         return this.boostCounter > 0;
+    }
+
+    public boolean nearlyFinish() {
+        return this.at() >= 1200;
+    }
+
+    public boolean hasPastHalfway() {
+        return this.at() >= 750;
+    }
+
+    public int decelerate() {
+        this.speed = getDeceleratedSpeed();
+        return this.speed;
     }
 
 }

@@ -21,6 +21,8 @@ public enum State {
     DECELERATING,
     @SerializedName("PICKED_UP_POWERUP")
     PICKED_UP_POWERUP,
+    @SerializedName("USED_EMP")
+    USED_EMP,
     @SerializedName("USED_BOOST")
     USED_BOOST,
     @SerializedName("USED_OIL")

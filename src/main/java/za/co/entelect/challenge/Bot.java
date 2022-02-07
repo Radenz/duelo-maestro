@@ -15,7 +15,7 @@ import za.co.entelect.challenge.type.RelativePosition;
 public class Bot {
 
     private Car opponent;
-    public Car player;
+    private Car player;
 
     private LocalMap map;
     private Strategy strategy = Strategy.SAFE;
@@ -26,6 +26,13 @@ public class Bot {
             GoAction.TURN_LEFT,
             GoAction.TURN_RIGHT,
             GoAction.DECELERATE,
+    };
+    private static final GoAction[] GO_ACTIONS_REVERSED = {
+            GoAction.DECELERATE,
+            GoAction.TURN_RIGHT,
+            GoAction.TURN_LEFT,
+            GoAction.NORMAL,
+            GoAction.ACCELERATE,
     };
 
     private boolean leftBlocked;
@@ -57,6 +64,14 @@ public class Bot {
             }
         }
         return new DoNothingCommand();
+    }
+
+    public Car player() {
+        return this.player;
+    }
+
+    public Car opponent() {
+        return this.opponent;
     }
 
     public boolean canTurnLeft() {
@@ -217,7 +232,7 @@ public class Bot {
         return this.player.at() > this.opponent.at();
     }
 
-    public RelativePosition getRelativePosition() {
+    public RelativePosition getOpponentRelativePosition() {
         int posDiff = this.opponent.at() - this.player.at();
         switch (posDiff) {
             case -2:
@@ -295,7 +310,7 @@ public class Bot {
                 Block block = this.map.getBlock(params.lane, dist);
 //                Guard
                 if (block == null) {
-                    continue;
+                    break;
                 }
                 if (block.terrain.is(powerUp)) {
                     found = true;
@@ -307,6 +322,52 @@ public class Bot {
                 }
 
                 if (block.isHardObstacle() && forced) {
+                    found = false;
+                    continue actions_iteration;
+                }
+            }
+        }
+
+        return new PowerUpSearchResult(found, actionToDo);
+    }
+
+    public PowerUpSearchResult searchNearestPowerUp() {
+        boolean found = false;
+        GoAction actionToDo = GoAction.NORMAL;
+        actions_iteration:
+        for (GoAction action : Bot.GO_ACTIONS_REVERSED) {
+//            Guard
+            if ((action == GoAction.TURN_LEFT && !this.canTurnLeft())
+                    || (action == GoAction.TURN_RIGHT && !this.canTurnRight())) {
+                continue;
+            }
+
+            Car car = this.player.clone();
+
+            GoActionParams params = this.calcGoingParamsFor(
+                    Racer.SELF,
+                    action
+            );
+
+            for (int i = 0; i < params.diff; i++) {
+                int dist = params.start + i;
+                Block block = this.map.getBlock(params.lane, dist);
+//                Guard
+                if (block == null) {
+                    break;
+                }
+                if (block.terrain.isPowerUp()) {
+                    found = true;
+                    actionToDo = action;
+                    break actions_iteration;
+                }
+                if (block.isSoftObstacle()) {
+                    int speed = car.speed;
+                    int newSpeed = car.decelerate();
+                    params.diff -= speed - newSpeed;
+                }
+
+                if (block.isHardObstacle()) {
                     found = false;
                     continue actions_iteration;
                 }
@@ -411,6 +472,44 @@ public class Bot {
 
     public boolean stillHasBoost() {
         return this.player.isBoosting();
+    }
+
+    public boolean willReachFinishIf(GoAction action) {
+        if ((action == GoAction.TURN_LEFT && !this.canTurnLeft())
+                || (action == GoAction.TURN_RIGHT && !this.canTurnRight())) {
+            return false;
+        }
+
+        Car car = this.player.clone();
+
+        GoActionParams params = this.calcGoingParamsFor(
+                Racer.SELF,
+                action
+        );
+
+        for (int i = 0; i < params.diff; i++) {
+            int dist = params.start + i;
+            Block block = this.map.getBlock(params.lane, dist);
+//                Guard
+            if (block == null) {
+                return false;
+            }
+            if (block.isSoftObstacle()) {
+                int speed = car.speed;
+                int newSpeed = car.decelerate();
+                params.diff -= speed - newSpeed;
+            }
+
+            if (block.isFinishLine()) {
+                return true;
+            }
+
+            if (block.isHardObstacle()) {
+                return false;
+            }
+        }
+
+        return false;
     }
 
 }

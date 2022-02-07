@@ -7,7 +7,6 @@ import za.co.entelect.challenge.entities.GameState;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -35,7 +34,7 @@ public class Main {
 
                 GameState gameState = gson.fromJson(state, GameState.class);
                 Bot DueloMaestro = new Bot(gameState);
-                DueloMaestro.useStrategy(Strategy.SAFE);
+                DueloMaestro.useStrategy(Strategy.SKIPPER);
                 Command command = DueloMaestro.run();
 
                 System.out.println(String.format("C;%d;%s", roundNumber, command.render()));

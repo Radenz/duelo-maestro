@@ -11,7 +11,7 @@ public enum FixAction implements Action {
     NORMAL;
 
     public boolean isFeasibleFor(Bot bot) {
-        Car player = bot.player;
+        Car player = bot.player();
         switch (this) {
             case URGENT:
                 return player.damage >= 5;

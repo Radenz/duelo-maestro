@@ -20,7 +20,7 @@ public enum UseAction implements Action {
     private Bot bot;
 
     public boolean isFeasibleFor(Bot bot) {
-        this.bot = bot;
+        this.use(bot);
         boolean willHitObstacle = bot.willHitHardObstacleIf(GoAction.NORMAL);
         if (this == UseAction.EMP_FORCE
                 || this == UseAction.CYBERTRUCK_FORCE
@@ -29,13 +29,13 @@ public enum UseAction implements Action {
                 || this == UseAction.LIZARD_FORCE) {
             willHitObstacle = false;
         }
-        boolean feasibility = bot.player.has(this.toPowerUp())
+        boolean feasibility = bot.player().has(this.toPowerUp())
                 && !willHitObstacle;
         switch (this) {
             case EMP:
             case EMP_FORCE:
                 feasibility = feasibility
-                        && bot.getRelativePosition().
+                        && bot.getOpponentRelativePosition().
                         isWithinEMPRange()
                         && bot.isBehindOpponent();
                 break;
@@ -52,17 +52,21 @@ public enum UseAction implements Action {
                         && bot.isWithinTrappingRange();
                 break;
             case LIZARD:
-                feasibility = bot.player.has(this.toPowerUp())
+                feasibility = bot.player().has(this.toPowerUp())
                         && bot.isStraightBlocked()
                         && bot.willBeSafeAfterLizardUses();
                 break;
             case LIZARD_FORCE:
-                feasibility = bot.player.has(this.toPowerUp())
+                feasibility = bot.player().has(this.toPowerUp())
                         && bot.isStraightBlocked();
                 break;
 
         }
         return feasibility;
+    }
+
+    public void use(Bot bot) {
+        this.bot = bot;
     }
 
 
