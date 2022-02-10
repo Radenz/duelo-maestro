@@ -10,6 +10,9 @@ public enum FixAction implements Action {
     SEMI_URGENT,
     NORMAL;
 
+    /**
+     * @deprecated
+     */
     public boolean isFeasibleFor(Bot bot) {
         Car player = bot.player();
         switch (this) {

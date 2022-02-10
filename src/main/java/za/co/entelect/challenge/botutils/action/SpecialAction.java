@@ -14,9 +14,15 @@ public enum SpecialAction implements Action {
     RAGE,
     EMP_COMBO;
 
+    /**
+     * @deprecated
+     */
     private GoAction greedyPickUpAction;
     private Bot bot;
 
+    /**
+     * @deprecated
+     */
     private static final UseAction[] BERSERK_ACTIONS = {
             UseAction.EMP_FORCE,
             UseAction.CYBERTRUCK_FORCE,
@@ -25,6 +31,9 @@ public enum SpecialAction implements Action {
             UseAction.LIZARD_FORCE
     };
 
+    /**
+     * @deprecated
+     */
     public boolean isFeasibleFor(Bot bot) {
         this.bot = bot;
         switch (this) {
@@ -63,6 +72,9 @@ public enum SpecialAction implements Action {
 
 
     public Command execute() {
+        /**
+         * @deprecated
+         */
         switch (this) {
             case BERSERK:
             case ULTRA_BERSERK:
@@ -87,6 +99,9 @@ public enum SpecialAction implements Action {
         }
     }
 
+    /**
+     * @deprecated
+     */
     private static Command berserk(Bot bot) {
         for (UseAction action : SpecialAction.BERSERK_ACTIONS) {
             if (action.isFeasibleFor(bot)) {

@@ -17,8 +17,16 @@ public enum UseAction implements Action {
     OIL_FORCE,
     LIZARD_FORCE;
 
+    private static Position cyberTruckDeployPosition;
+
+    /**
+     * @deprecated
+     */
     private Bot bot;
 
+    /**
+     * @deprecated
+     */
     public boolean isFeasibleFor(Bot bot) {
         this.use(bot);
         boolean willHitObstacle = bot.willHitHardObstacleIf(GoAction.NORMAL);
@@ -65,6 +73,9 @@ public enum UseAction implements Action {
         return feasibility;
     }
 
+    /**
+     * @deprecated
+     */
     public void use(Bot bot) {
         this.bot = bot;
     }
@@ -77,8 +88,9 @@ public enum UseAction implements Action {
                 return new EmpCommand();
             case CYBERTRUCK:
             case CYBERTRUCK_FORCE:
-                Position deployPos = this.bot.getCyberTruckDeployPosition();
-                return new TweetCommand(deployPos.lane(), deployPos.distance());
+//                Position deployPos = this.bot.getCyberTruckDeployPosition();
+                return new TweetCommand(cyberTruckDeployPosition.lane(),
+                        cyberTruckDeployPosition.distance());
             case BOOST:
             case BOOST_FORCE:
                 return new BoostCommand();
@@ -92,7 +104,7 @@ public enum UseAction implements Action {
         }
     }
 
-    private PowerUp toPowerUp() {
+    public PowerUp toPowerUp() {
         switch (this) {
             case EMP:
             case EMP_FORCE:
@@ -111,5 +123,9 @@ public enum UseAction implements Action {
             default:
                 return PowerUp.LIZARD;
         }
+    }
+
+    public static void setCyberTruckDeployPosition(Position position) {
+        UseAction.cyberTruckDeployPosition = position;
     }
 }

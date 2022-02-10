@@ -9,6 +9,9 @@ public enum FinalAction implements Action {
     TURN_RIGHT,
     TURN_LEFT;
 
+    /**
+     * @deprecated
+     */
     @Override
     public boolean isFeasibleFor(Bot bot) {
         return bot.willReachFinishIf(this.toGoAction());
@@ -19,7 +22,7 @@ public enum FinalAction implements Action {
         return this.toGoAction().execute();
     }
 
-    private GoAction toGoAction() {
+    public GoAction toGoAction() {
         switch (this) {
             case ACCELERATE:
                 return GoAction.ACCELERATE;

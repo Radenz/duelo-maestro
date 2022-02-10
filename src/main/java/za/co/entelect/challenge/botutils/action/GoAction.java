@@ -11,6 +11,9 @@ public enum GoAction implements Action {
     TURN_RIGHT,
     DECELERATE;
 
+    /**
+     * @deprecated
+     */
     public boolean isFeasibleFor(Bot bot) {
         boolean softBlocked = bot.canSeeObstaclesOnAllLanes(false);
         boolean softBlockedWithAcc = bot.canSeeObstaclesOnAllLanes(true);

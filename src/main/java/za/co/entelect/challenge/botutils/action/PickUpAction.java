@@ -17,8 +17,14 @@ public enum PickUpAction implements Action {
     OIL_FORCE,
     LIZARD_FORCE;
 
+    /**
+     * @deprecated
+     */
     private GoAction action;
 
+    /**
+     * @deprecated
+     */
     public boolean isFeasibleFor(Bot bot) {
         boolean forced = this.isForced();
         PowerUp powerUp = this.toPowerUp();
@@ -32,7 +38,7 @@ public enum PickUpAction implements Action {
         return result.available;
     }
 
-    private boolean isForced() {
+    public boolean isForced() {
         switch (this) {
             case EMP_FORCE:
             case CYBERTRUCK_FORCE:
@@ -44,7 +50,7 @@ public enum PickUpAction implements Action {
         return false;
     }
 
-    private PowerUp toPowerUp() {
+    public PowerUp toPowerUp() {
         switch (this) {
             case EMP:
             case EMP_FORCE:
@@ -66,6 +72,9 @@ public enum PickUpAction implements Action {
     }
 
     public Command execute() {
+        /**
+         * @deprecated
+         */
         return this.action.execute();
     }
 

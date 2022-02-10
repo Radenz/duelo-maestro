@@ -2,6 +2,7 @@ package za.co.entelect.challenge.entities;
 
 import com.google.gson.annotations.SerializedName;
 import za.co.entelect.challenge.enums.Terrain;
+import za.co.entelect.challenge.type.ObstacleType;
 
 public class Block {
     @SerializedName("position")
@@ -32,5 +33,17 @@ public class Block {
 
     public boolean isFinishLine() {
         return this.terrain.isFinishLine();
+    }
+
+    public boolean is(ObstacleType type) {
+        switch (type) {
+            case ALL:
+                return this.isObstacle();
+            case HARD:
+                return this.isHardObstacle();
+            case SOFT:
+            default:
+                return this.isSoftObstacle();
+        }
     }
 }

@@ -196,4 +196,8 @@ public class Car {
         return this.speed;
     }
 
+    public boolean isHitByEMP() {
+        return this.is(State.HIT_EMP);
+    }
+
 }
