@@ -24,7 +24,7 @@ public class Bot {
     private Car player;
 
     private LocalMap map;
-    private Strategy strategy = Strategy.SAFE;
+    private Strategy strategy = Strategy.HASTE_SKIPPER;
 
     private ObstacleDetector selfObstacleDetector;
     private ObstacleDetector opponentObstacleDetector;

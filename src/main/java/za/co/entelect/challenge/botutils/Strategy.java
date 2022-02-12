@@ -11,10 +11,11 @@ public enum Strategy {
     ULTRA_BERSERK,
     HASTE_BERSERK,
     DESTROYER,
-    SKIPPER;
+    SKIPPER,
+    HASTE_SKIPPER;
 
-    public static Action[] getActions(Strategy strat) {
-        switch (strat) {
+    public static Action[] getActions(Strategy strategy) {
+        switch (strategy) {
             case SAFE:
                 return Strategy.getSafeStrategyActions();
             case BERSERK:
@@ -32,8 +33,10 @@ public enum Strategy {
             case DESTROYER:
                 return Strategy.getDestroyerStrategyActions();
             case SKIPPER:
-            default:
                 return Strategy.getSkipperStrategyActions();
+            case HASTE_SKIPPER:
+            default:
+                return Strategy.getHasteSkipperStrategyActions();
         }
     }
 
@@ -238,6 +241,10 @@ public enum Strategy {
         };
     }
 
+    /**
+     * @version 2
+     * @return {@code SKIPPER} strategy actions.
+     */
     private static Action[] getSkipperStrategyActions() {
         return new Action[]{
                 FinalAction.ACCELERATE,
@@ -245,10 +252,37 @@ public enum Strategy {
                 FinalAction.TURN_LEFT,
                 FinalAction.TURN_RIGHT,
                 FixAction.URGENT,
-                UseAction.LIZARD_FORCE,
+                UseAction.LIZARD,
                 UseAction.EMP,
                 UseAction.CYBERTRUCK,
                 UseAction.BOOST,
+                UseAction.OIL,
+                FixAction.SEMI_URGENT,
+                PickUpAction.LIZARD,
+                PickUpAction.EMP,
+                PickUpAction.CYBERTRUCK,
+                PickUpAction.BOOST,
+                PickUpAction.OIL,
+                GoAction.ACCELERATE,
+                GoAction.NORMAL,
+                GoAction.TURN_LEFT,
+                GoAction.TURN_RIGHT,
+                GoAction.DECELERATE,
+                FixAction.NORMAL
+        };
+    }
+
+    private static Action[] getHasteSkipperStrategyActions() {
+        return new Action[]{
+                FinalAction.ACCELERATE,
+                FinalAction.NORMAL,
+                FinalAction.TURN_LEFT,
+                FinalAction.TURN_RIGHT,
+                FixAction.URGENT,
+                UseAction.BOOST,
+                UseAction.LIZARD,
+                UseAction.EMP,
+                UseAction.CYBERTRUCK,
                 UseAction.OIL,
                 FixAction.SEMI_URGENT,
                 PickUpAction.LIZARD,

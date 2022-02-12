@@ -33,9 +33,9 @@ public class Main {
                 String state = new String(Files.readAllBytes(Paths.get(statePath)));
 
                 GameState gameState = gson.fromJson(state, GameState.class);
-                Bot DueloMaestro = new Bot(gameState);
-                DueloMaestro.useStrategy(Strategy.SAFE);
-                Command command = DueloMaestro.run();
+                Bot dueloMaestro = new Bot(gameState);
+                dueloMaestro.useStrategy(Strategy.SAFE);
+                Command command = dueloMaestro.run();
 
                 System.out.println(String.format("C;%d;%s", roundNumber, command.render()));
             } catch (Exception e) {
