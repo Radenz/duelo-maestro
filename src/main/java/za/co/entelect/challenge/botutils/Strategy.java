@@ -8,7 +8,7 @@ import za.co.entelect.challenge.botutils.action.*;
  */
 public enum Strategy {
     /**
-     * {@code SAFE} strategy picks & uses power ups wisely.
+     * {@code SAFE} strategy picks and uses power ups wisely.
      * This strategy prefers using power ups than picking them,
      * and prefers picking power ups than accelerating or
      * randomly switch lane without searching for power ups.
@@ -29,7 +29,7 @@ public enum Strategy {
     RAGE,
     /**
      * {@code BOOST_MANIAC} strategy behaves similarly as
-     * {@code SAFE} strategy, but uses & picks up boost power
+     * {@code SAFE} strategy, but uses and picks up boost power
      * ups as often as possible.
      */
     BOOST_MANIAC,
