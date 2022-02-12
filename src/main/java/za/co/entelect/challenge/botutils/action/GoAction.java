@@ -4,11 +4,30 @@ import za.co.entelect.challenge.Bot;
 import za.co.entelect.challenge.command.*;
 import za.co.entelect.challenge.enums.Direction;
 
+/**
+ * {@code GoAction} contains various basic actions
+ * in the game.
+ */
 public enum GoAction implements Action {
+    /**
+     * Accelerate the car.
+     */
     ACCELERATE,
+    /**
+     * Do nothing.
+     */
     NORMAL,
+    /**
+     * Switch to left side lane.
+     */
     TURN_LEFT,
+    /**
+     * Switch to right side lane.
+     */
     TURN_RIGHT,
+    /**
+     * Decelerate the car.
+     */
     DECELERATE;
 
     /**

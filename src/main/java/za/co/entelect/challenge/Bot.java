@@ -67,6 +67,10 @@ public class Bot {
     private boolean straightHardBlocked;
     private boolean accHardBlocked;
 
+    /**
+     * Creates a new bot from specific game state.
+     * @param gameState current state of the game.
+     */
     public Bot(GameState gameState) {
         this.player = gameState.player;
         this.opponent = gameState.opponent;
@@ -109,10 +113,21 @@ public class Bot {
         this.checkers.put(FinalAction.class, new FinalActionChecker(this.player, this.opponent));
     }
 
+    /**
+     * Switch strategy to specified strategy. All {@code Bot}
+     * use {@code HASTE_SKIPPER} strategy by default.
+     * @param strategy strategy to use
+     */
     public void useStrategy(Strategy strategy) {
         this.strategy = strategy;
     }
 
+    /**
+     * Analyze game state and calculate the best feasible action
+     * to do at the current state based on the {@code Action} list
+     * of the strategy.
+     * @return command to execute to the game
+     */
     public Command run() {
 
         Action[] actions = Strategy.getActions(this.strategy);

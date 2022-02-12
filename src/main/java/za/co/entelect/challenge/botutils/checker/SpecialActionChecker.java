@@ -9,8 +9,15 @@ import za.co.entelect.challenge.enums.PowerUp;
 import za.co.entelect.challenge.enums.State;
 import za.co.entelect.challenge.type.PowerUpSearchResult;
 
+/**
+ * {@code SpecialActionChecker} checks {@code SpecialAction}
+ * feasibility.
+ */
 public class SpecialActionChecker extends Checker {
 
+    /**
+     * Berserk actions priority.
+     */
     private static final UseAction[] BERSERK_ACTIONS = {
             UseAction.EMP_FORCE,
             UseAction.CYBERTRUCK_FORCE,
@@ -19,18 +26,41 @@ public class SpecialActionChecker extends Checker {
             UseAction.LIZARD_FORCE
     };
 
+    /**
+     * Creates a new {@code SpecialActionChecker} from
+     * both cars.
+     * @param self player's car
+     * @param opponent opponent's car
+     */
     public SpecialActionChecker(Car self, Car opponent) {
         super(self, opponent);
     }
 
+    /**
+     * Attaches an action to the checker.
+     * @param action action to check
+     * @return this {@code SpecialActionChecker} containing
+     *         the action
+     */
     public SpecialActionChecker is(Action action) {
         this.action = action;
         return this;
     }
 
+    /**
+     * Checks whether the action to check is feasible or not.
+     * Must be called only after calling {@code is()} method.
+     * @return true if the action to check is feasible, false
+     *         otherwise
+     */
     @Override
     public boolean feasible() {
         switch ((SpecialAction) this.action) {
+            /**
+             * Berserk action is feasible if player has
+             * any power ups and either player or opponent
+             * has reached last fifth of the race.
+             */
             case BERSERK:
                 this.actionToExecute = this.berserk();
                 return this.actionToExecute != null
@@ -38,6 +68,11 @@ public class SpecialActionChecker extends Checker {
                         this.self.nearlyFinish()
                                 || this.opponent.nearlyFinish()
                 );
+            /**
+             * Ultra berserk action is feasible if player has
+             * any power ups and either player or opponent
+             * has reached last half of the race.
+             */
             case ULTRA_BERSERK:
                 this.actionToExecute = this.berserk();
                 return  this.actionToExecute != null
@@ -45,8 +80,13 @@ public class SpecialActionChecker extends Checker {
                         this.self.hasPastHalfway()
                                 || this.opponent.hasPastHalfway()
                 );
-            case RAGE:
 
+            /**
+             * Rage action is only feasible if the player
+             * has TWEET power up or EMP power up and
+             * in the reasonable position to use the EMP.
+             */
+            case RAGE:
                 if (this.self.has(PowerUp.EMP)
                         && this.positionDetector
                         .getOpponentRelativePosition()
@@ -66,6 +106,10 @@ public class SpecialActionChecker extends Checker {
                                 && this.positionDetector
                                 .isBehindOpponent()
                 );
+            /**
+             * EMP combo is feasible if the player has 5 EMPs
+             * or the player used EMP in the last round.
+             */
             case EMP_COMBO:
                 this.actionToExecute = UseAction.EMP;
                 return this.self.has(PowerUp.EMP, 5)
@@ -73,6 +117,10 @@ public class SpecialActionChecker extends Checker {
                         this.self.is(State.USED_EMP)
                                 && this.self.has(PowerUp.EMP)
                 );
+            /**
+             * Greedy pick up action is feasible if there is any
+             * reachable nearest power up to pick.
+             */
             case GREEDY_PICK_UP:
             default:
                 PowerUpSearchResult result = this.powerUpDetector
@@ -82,6 +130,10 @@ public class SpecialActionChecker extends Checker {
         }
     }
 
+    /**
+     * Calculates the best possible action to berserk.
+     * @return the action to execute to berserk
+     */
     private UseAction berserk() {
         UseActionChecker useActionChecker = new UseActionChecker(
                 this.self,

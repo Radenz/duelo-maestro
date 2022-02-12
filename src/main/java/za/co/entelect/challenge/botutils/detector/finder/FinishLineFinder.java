@@ -6,12 +6,29 @@ import za.co.entelect.challenge.botutils.detector.Finder;
 import za.co.entelect.challenge.botutils.detector.ObstacleDetector;
 import za.co.entelect.challenge.entities.Block;
 
+/**
+ * {@code FinishLineFinder} is a {@code Finder} to
+ * find finish line terrain.
+ */
 public class FinishLineFinder extends Finder {
 
+    /**
+     * Creates a new {@code FinishLineFinder} based on
+     * {@code ObstacleDetector}.
+     * @param detector {@code ObstacleDetector} to attach
+     *                 to the finder
+     */
     public FinishLineFinder(ObstacleDetector detector) {
         super(detector);
     }
 
+    /**
+     * Checks if the {@code ObstacleDetector}
+     * detects finish line for specific {@code GoAction}.
+     * @param action action to check
+     * @return true if the finder's {@code ObstacleDetector}
+     *         detects finish line for the action
+     */
     public boolean when(GoAction action) {
         if (action == null) {
             return false;

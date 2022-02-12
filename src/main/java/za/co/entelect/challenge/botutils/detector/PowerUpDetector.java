@@ -9,8 +9,15 @@ import za.co.entelect.challenge.type.DetectionParams;
 import za.co.entelect.challenge.type.LocalMap;
 import za.co.entelect.challenge.type.PowerUpSearchResult;
 
+/**
+ * {@code ObstacleDetector} is a detector to detect nearby
+ * power ups in a car's surrounding.
+ */
 public class PowerUpDetector extends Detector {
 
+    /**
+     * Actions priority to search for power ups.
+     */
     private static final GoAction[] GO_ACTIONS = {
             GoAction.ACCELERATE,
             GoAction.NORMAL,
@@ -18,6 +25,10 @@ public class PowerUpDetector extends Detector {
             GoAction.TURN_RIGHT,
             GoAction.DECELERATE,
     };
+
+    /**
+     * Actions priority to search for nearest power ups.
+     */
     private static final GoAction[] GO_ACTIONS_REVERSED = {
             GoAction.DECELERATE,
             GoAction.TURN_RIGHT,
@@ -26,11 +37,26 @@ public class PowerUpDetector extends Detector {
             GoAction.ACCELERATE,
     };
 
+    /**
+     * Creates a new {@code PowerUpDetector} for specified
+     * {@code Car} and current {@code LocalMap}.
+     * @param car a {@code Car} to attach to this detector
+     * @param map current {@code LocalMap}
+     */
     public PowerUpDetector(Car car, LocalMap map) {
         this.car = car;
         this.map = map;
     }
 
+    /**
+     * Searches specific power up using all {@code GoAction}.
+     * @param powerUp power up to search
+     * @param forced true if the searching process ignores
+     *               hitting obstacles
+     * @return a {@code PowerUpSearchResult} containing power up
+     *         availability and {@code GoAction} to do to reach
+     *         the power up
+     */
     public PowerUpSearchResult searchPowerUp(
             PowerUp powerUp,
             boolean forced
@@ -73,6 +99,13 @@ public class PowerUpDetector extends Detector {
         return new PowerUpSearchResult(found, actionToDo);
     }
 
+    /**
+     * Searches the nearest available power up using all
+     * {@code GoAction}.
+     * @return a {@code PowerUpSearchResult} containing power up
+     *         availability and {@code GoAction} to do to reach
+     *         the power up
+     */
     public PowerUpSearchResult searchNearestPowerUp() {
         boolean found = false;
         GoAction actionToDo = GoAction.NORMAL;
