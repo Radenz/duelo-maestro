@@ -58,16 +58,18 @@ public abstract class Checker {
         this.opponent = opponent;
     }
 
-    public void use(ObstacleDetector detector) {
-        this.obstacleDetector = detector;
-    }
-
-    public void use(PowerUpDetector detector) {
-        this.powerUpDetector = detector;
-    }
-
-    public void use(PositionDetector detector) {
-        this.positionDetector = detector;
+    /**
+     * Attaches a detector to the checker to use.
+     * @param detector detector to attach
+     */
+    public void use(Detector detector) {
+        if (detector instanceof ObstacleDetector) {
+            this.obstacleDetector = (ObstacleDetector) detector;
+        } else if (detector instanceof PowerUpDetector) {
+            this.powerUpDetector = (PowerUpDetector) detector;
+        } else if (detector instanceof PositionDetector) {
+            this.positionDetector = (PositionDetector) detector;
+        }
     }
 
     /**
@@ -90,7 +92,7 @@ public abstract class Checker {
      * feasible action. Must be called only after calling
      * {@code feasible()} method, otherwise may perform
      * an unexpected behavior.
-     * @return
+     * @return the command to execute in the game
      */
     public Command execute() {
         return actionToExecute.execute();
