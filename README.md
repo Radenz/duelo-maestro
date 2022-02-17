@@ -10,7 +10,7 @@
   <p align="center">
     An Overdrive game simple bot built in Java powered by greedy algorithm.
     <br />
-    <a href="demo">View Demo</a>
+    <a href="https://youtu.be/EzPI2PUhXZk">View Demo</a>
     ·
     <a href="https://duelo-maestro-docs.web.app/">Documentation</a>
   </p>
