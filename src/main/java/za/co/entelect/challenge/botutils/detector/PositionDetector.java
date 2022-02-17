@@ -97,6 +97,7 @@ public class PositionDetector extends Detector {
     /**
      * Chooses best position to deploy cyber truck based
      * on surrounding obstacles relative to the opponent's car.
+     * @version 2
      * @return best possible cyber truck deploy
      *         position
      */
@@ -105,43 +106,43 @@ public class PositionDetector extends Detector {
                 .willHit(ObstacleType.ALL)
                 .when(GoAction.NORMAL)) {
             return new Position(this.opponent.lane(),
-                    this.opponent.at() + 1);
+                    this.opponent.at() + this.opponent.speed + 1);
         } else if (this.opponent.canTurnLeft()
                 && this.opponentObstacleDetector
                 .willHit(ObstacleType.ALL)
                 .when(GoAction.TURN_LEFT)
         ) {
             return new Position(this.opponent.lane() - 1,
-                    this.opponent.at() + 1);
+                    this.opponent.at() + this.opponent.speed);
         } else if (this.opponent.canTurnRight()
                 && this.opponentObstacleDetector
                 .willHit(ObstacleType.ALL)
                 .when(GoAction.TURN_RIGHT)
         ) {
             return new Position(this.opponent.lane() + 1,
-                    this.opponent.at() + 1);
+                    this.opponent.at()  + this.opponent.speed);
         } else if (this.opponentObstacleDetector
                 .willHit(ObstacleType.HARD)
                 .when(GoAction.NORMAL)) {
             return new Position(this.opponent.lane(),
-                    this.opponent.at() + 1);
+                    this.opponent.at() + this.opponent.speed + 1);
         } else if (this.opponent.canTurnLeft()
                 && this.opponentObstacleDetector
                 .willHit(ObstacleType.HARD)
                 .when(GoAction.TURN_LEFT)
         ) {
             return new Position(this.opponent.lane() - 1,
-                    this.opponent.at() + 1);
+                    this.opponent.at()  + this.opponent.speed);
         } else if (this.opponent.canTurnRight()
                 && this.opponentObstacleDetector
                 .willHit(ObstacleType.HARD)
                 .when(GoAction.TURN_RIGHT)
         ) {
             return new Position(this.opponent.lane() + 1,
-                    this.opponent.at() + 1);
+                    this.opponent.at() + this.opponent.speed);
         }
         return new Position(this.opponent.lane(),
-                this.opponent.at() + 1);
+                this.opponent.at() + this.opponent.speed + 1);
     }
 
     /**

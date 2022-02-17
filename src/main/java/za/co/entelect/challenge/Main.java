@@ -34,7 +34,7 @@ public class Main {
 
                 GameState gameState = gson.fromJson(state, GameState.class);
                 Bot dueloMaestro = new Bot(gameState);
-                dueloMaestro.useStrategy(Strategy.SAFE);
+                dueloMaestro.useStrategy(Strategy.SKIPPER);
                 Command command = dueloMaestro.run();
 
                 System.out.println(String.format("C;%d;%s", roundNumber, command.render()));
