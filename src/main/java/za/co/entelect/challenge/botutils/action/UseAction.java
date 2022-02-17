@@ -1,7 +1,6 @@
 package za.co.entelect.challenge.botutils.action;
 
 import za.co.entelect.challenge.command.*;
-import za.co.entelect.challenge.Bot;
 import za.co.entelect.challenge.entities.Position;
 import za.co.entelect.challenge.enums.PowerUp;
 
@@ -70,68 +69,6 @@ public enum UseAction implements Action {
 
     private static Position cyberTruckDeployPosition;
 
-    /**
-     * @deprecated
-     */
-    private Bot bot;
-
-    /**
-     * @deprecated
-     */
-    public boolean isFeasibleFor(Bot bot) {
-        this.use(bot);
-        boolean willHitObstacle = bot.willHitHardObstacleIf(GoAction.NORMAL);
-        if (this == UseAction.EMP_FORCE
-                || this == UseAction.CYBERTRUCK_FORCE
-                || this == UseAction.BOOST_FORCE
-                || this == UseAction.OIL_FORCE
-                || this == UseAction.LIZARD_FORCE) {
-            willHitObstacle = false;
-        }
-        boolean feasibility = bot.player().has(this.toPowerUp())
-                && !willHitObstacle;
-        switch (this) {
-            case EMP:
-            case EMP_FORCE:
-                feasibility = feasibility
-                        && bot.getOpponentRelativePosition().
-                        isWithinEMPRange()
-                        && bot.isBehindOpponent();
-                break;
-
-            case BOOST:
-                feasibility = feasibility
-                        && !bot.willHitHardObstacleIfBoosted()
-                        && !bot.stillHasBoost();
-                break;
-            case OIL:
-            case OIL_FORCE:
-                feasibility = feasibility
-                        && bot.isAheadOfOpponent()
-                        && bot.isWithinTrappingRange();
-                break;
-            case LIZARD:
-                feasibility = bot.player().has(this.toPowerUp())
-                        && bot.isStraightBlocked()
-                        && bot.willBeSafeAfterLizardUses();
-                break;
-            case LIZARD_FORCE:
-                feasibility = bot.player().has(this.toPowerUp())
-                        && bot.isStraightBlocked();
-                break;
-
-        }
-        return feasibility;
-    }
-
-    /**
-     * @deprecated
-     */
-    public void use(Bot bot) {
-        this.bot = bot;
-    }
-
-
     public Command execute() {
         switch (this) {
             case EMP:
@@ -139,7 +76,6 @@ public enum UseAction implements Action {
                 return new EmpCommand();
             case CYBERTRUCK:
             case CYBERTRUCK_FORCE:
-//                Position deployPos = this.bot.getCyberTruckDeployPosition();
                 return new TweetCommand(cyberTruckDeployPosition.lane(),
                         cyberTruckDeployPosition.distance());
             case BOOST:

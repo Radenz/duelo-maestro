@@ -8,10 +8,6 @@ import za.co.entelect.challenge.command.Command;
  * bot can check the feasibility of and execute.
  */
 public interface Action {
-    /**
-     * @deprecated
-     */
-    boolean isFeasibleFor(Bot bot);
 
     /**
      * Executes the action.

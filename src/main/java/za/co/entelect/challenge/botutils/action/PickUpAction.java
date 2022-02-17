@@ -1,10 +1,8 @@
 package za.co.entelect.challenge.botutils.action;
 
-import za.co.entelect.challenge.Bot;
 import za.co.entelect.challenge.command.Command;
+import za.co.entelect.challenge.command.DoNothingCommand;
 import za.co.entelect.challenge.enums.PowerUp;
-import za.co.entelect.challenge.type.PowerUpSearchResult;
-
 
 /**
  * {@code GoAction} contains various actions to
@@ -68,27 +66,6 @@ public enum PickUpAction implements Action {
     LIZARD_FORCE;
 
     /**
-     * @deprecated
-     */
-    private GoAction action;
-
-    /**
-     * @deprecated
-     */
-    public boolean isFeasibleFor(Bot bot) {
-        boolean forced = this.isForced();
-        PowerUp powerUp = this.toPowerUp();
-
-        PowerUpSearchResult result = bot.searchPowerUp(
-                powerUp,
-                forced
-        );
-
-        this.action = result.action;
-        return result.available;
-    }
-
-    /**
      * Returns true if the {@code PickUpAction} is forced.
      * @return true if the {@code PickUpAction} is forced,
      *         false otherwise
@@ -133,10 +110,7 @@ public enum PickUpAction implements Action {
     }
 
     public Command execute() {
-        /**
-         * @deprecated
-         */
-        return this.action.execute();
+        return new DoNothingCommand();
     }
 
 }
